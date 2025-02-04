@@ -38,5 +38,13 @@ jobs:
       - name: Build Docker image
         run: docker build -t chichia/diary:beta .
 
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: "fs"
+          scan-ref: "."
+          format: "table"
+          exit-code: "1"   
+
       - name: Push Docker image to Docker Hub
         run: docker push chichia/diary:beta
